@@ -31,7 +31,7 @@ var PhotoTilt = function(url, container) {
 
 	};
 
-	window.updatePosition = function(tilt) {
+	var updatePosition = function(tilt) {
 
 		var pxToMove;
 
