@@ -14,6 +14,10 @@ Demo
 ----
 You can find a working example [here](http://s3.jt.io/tilt/index.html) (make sure you test this on a device with a triaxial/accelerometer like a phone/tablet)
 
+More
+----
+Blog post with extra information [here](http://jt.io/2014/photo-tilt/).
+
 TODO
 ----
 
