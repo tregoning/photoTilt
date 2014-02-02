@@ -5,6 +5,7 @@ HTML5 clone of the photo tilt feature/gesture/ux found in Facebook's Paper app
 
 Basic Usage
 -----
+PhotoTilt (image url, container node)
 ```
 var photoTilt = new PhotoTilt('photo.jpg', document.body);
 ```
