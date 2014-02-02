@@ -7,7 +7,11 @@ Basic Usage
 -----
 PhotoTilt (image url, container node)
 ```
-var photoTilt = new PhotoTilt('photo.jpg', document.body);
+var photoTilt = new PhotoTilt({
+	url:'photo.jpg',
+	lowResUrl: 'lowRes.jpg', //optional it will load lowRes 1st if available
+	container:document.body  //optional, defaults to body
+});
 ```
 
 Demo
