@@ -1,10 +1,14 @@
-var PhotoTilt = function(url, container) {
+var PhotoTilt = function(options) {
 
 	'use strict';
 
-	var viewport,
+	var imgUrl = options.url,
+		lowResUrl = options.lowResUrl,
+		container = options.container || document.body,
+		viewport,
 		imgData,
 		img,
+		imgLoader,
 		delta,
 		centerOffset,
 		tiltBarWidth,
@@ -14,14 +18,32 @@ var PhotoTilt = function(url, container) {
 		config;
 
 	config = {
-		maxTilt: 30
+		maxTilt: options.maxTilt || 20,
+		twoPhase: options.lowResUrl || false
 	};
 
 	var init = function() {
 
+		var url = config.twoPhase ? lowResUrl : imgUrl;
+
 		generateViewPort();
 
 		preloadImg(url, function() {
+
+			img = imgLoader;
+
+			if (config.twoPhase) {
+
+				preloadImg(imgUrl, function() {
+					img.src = imgLoader.src;
+					imgLoader = null;
+				});
+
+			} else {
+
+				imgLoader = null;
+
+			}
 
 			generateImgData();
 			render();
@@ -137,12 +159,17 @@ var PhotoTilt = function(url, container) {
 
 	var preloadImg = function(url, done) {
 
-		img = new Image();
-		img.addEventListener('load', done, false);
-		img.src = url;
-
+		imgLoader = new Image();
+		imgLoader.addEventListener('load', done, false);
+		imgLoader.src = url;
 	};
 
 	init();
+
+	return {
+		getContainer: function(){
+			return container;
+		}
+	}
 
 };

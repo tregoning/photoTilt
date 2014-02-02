@@ -2,13 +2,16 @@
 <html>
 <head>
 	<title></title>
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="../style.css" />
 </head>
 <body>
-<script src="photoTilt.js"></script>
+<script src="../photoTilt.js"></script>
 <script>
     (function() {
-        var photoTilt = new PhotoTilt('http://farm9.staticflickr.com/8373/8545297917_f4b7ab8f6b_k.jpg', document.body);
+        var photoTilt = new PhotoTilt({
+            url:'http://farm9.staticflickr.com/8373/8545297917_f4b7ab8f6b_k.jpg',
+            lowResUrl: 'http://farm9.staticflickr.com/8373/8545297917_77848c8ce3_m.jpg'
+        });
     })();
 </script>
 </body>
