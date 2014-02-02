@@ -1,5 +1,5 @@
 html,
-body{
+body {
 	overflow:hidden;
 	height: 100%;
 	width: 100%;
@@ -7,21 +7,19 @@ body{
 	margin: 0;
 }
 
-.mask{
+.mask {
 	position: relative;
 	height: 100%;
 	overflow: hidden;
 }
 
-.mask img{
-
+.mask img {
 	position: absolute;
-
 	left: 0;
 	top: 0;
 }
 
-.tilt-bar{
+.tilt-bar {
 	position: fixed;
 	bottom: 30px;
 	left: 10px;
@@ -30,19 +28,17 @@ body{
 	background-color: rgba(255,255,2555,0.2);
 }
 
-.tilt-indicator{
+.tilt-indicator {
 	background-color: rgba(255,255,2555,0.8);
 	height: 3px;
 	position: absolute;
 }
 
-
 .mask img,
 .tilt-indicator {
-
-	webkit-transition: left 0.2s linear;
+	-webkit-transition: left 0.2s linear;
 	-moz-transition: left 0.2s linear;
-	-o-transition: left 0.2s linear;
+	-ms-transition: left 0.2s linear;
 	transition: left 0.2s linear;
 
 	-webkit-backface-visibility: hidden;
@@ -54,5 +50,4 @@ body{
 	-moz-perspective: 1000;
 	-ms-perspective: 1000;
 	perspective: 1000;
-
 }
