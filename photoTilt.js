@@ -30,7 +30,8 @@ var PhotoTilt = function(options) {
 
 		preloadImg(url, function() {
 
-			img = imgLoader;
+			img = imgLoader.cloneNode(false);
+			imgLoader = null;
 
 			if (config.twoPhase) {
 
@@ -38,10 +39,6 @@ var PhotoTilt = function(options) {
 					img.src = imgLoader.src;
 					imgLoader = null;
 				});
-
-			} else {
-
-				imgLoader = null;
 
 			}
 
