@@ -19,7 +19,8 @@ var PhotoTilt = function(options) {
 
 	config = {
 		maxTilt: options.maxTilt || 20,
-		twoPhase: options.lowResUrl || false
+		twoPhase: options.lowResUrl || false,
+		reverseTilt: options.reverseTilt || false
 	};
 
 	var init = function() {
@@ -58,6 +59,10 @@ var PhotoTilt = function(options) {
 			tilt = Math.min(tilt, config.maxTilt);
 		} else {
 			tilt = Math.max(tilt, config.maxTilt * -1);
+		}
+
+		if (!config.reverseTilt) {
+			tilt = tilt * -1;
 		}
 
 		pxToMove = (tilt * centerOffset) / config.maxTilt;
