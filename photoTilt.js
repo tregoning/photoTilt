@@ -67,7 +67,7 @@ var PhotoTilt = function(options) {
 
 		pxToMove = (tilt * centerOffset) / config.maxTilt;
 
-		updateImgPosition(imgData, (centerOffset + pxToMove) * -1);
+		updateImgPosition(imgData,  (centerOffset + pxToMove) * -1);
 
 		updateTiltBar(tilt);
 
@@ -76,15 +76,12 @@ var PhotoTilt = function(options) {
 	var updateTiltBar = function(tilt) {
 
 		var pxToMove = (tilt * ((tiltBarWidth - tiltBarIndicatorWidth) / 2)) / config.maxTilt;
-		tiltBarIndicator.style.left = (tiltCenterOffset + pxToMove) + 'px';
+		setTranslateX(tiltBarIndicator, (tiltCenterOffset + pxToMove) );
 
 	};
 
-	var updateImgPosition = function(imgData, leftPosition) {
-
-		imgData.x = leftPosition;
-		img.style.left = leftPosition + 'px';
-
+	var updateImgPosition = function(imgData, pxToMove) {
+		setTranslateX(img, pxToMove);
 	};
 
 	var addEventListeners = function() {
@@ -98,6 +95,13 @@ var PhotoTilt = function(options) {
 			}, false);
 
 		}
+	};
+
+	var setTranslateX = function(node, amount) {
+		node.style.webkitTransform =
+		node.style.MozTransform =
+		node.style.msTransform =
+		node.style.transform = "translateX(" + amount + "px)";
 	};
 
 	var render = function() {
@@ -153,8 +157,7 @@ var PhotoTilt = function(options) {
 			width: img.width,
 			height: img.height,
 			aspectRatio: img.width / img.height,
-			src: img.src,
-			x: 0
+			src: img.src
 		};
 
 	};
