@@ -12,8 +12,10 @@ var photoTilt = new PhotoTilt({
 	lowResUrl: 'lowRes.jpg', //optional it will load lowRes 1st if available
 	maxTilt: 18, //optional, defaults to 20
 	container:document.body  //optional, defaults to body
+	reverseTilt: false //optional, defaults to false
 });
 ```
+Note:The speed of the tilt can be tweaked by updating the transform transtion speed in the CSS file
 
 Demo
 ----
