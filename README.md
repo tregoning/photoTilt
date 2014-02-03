@@ -10,6 +10,7 @@ PhotoTilt (image url, container node)
 var photoTilt = new PhotoTilt({
 	url:'photo.jpg',
 	lowResUrl: 'lowRes.jpg', //optional it will load lowRes 1st if available
+	maxTilt: 18, //optional, defaults to 20
 	container:document.body  //optional, defaults to body
 });
 ```
