@@ -87,10 +87,16 @@ var PhotoTilt = function(options) {
 	var addEventListeners = function() {
 
 		if (window.DeviceOrientationEvent) {
+			var averageGamma = [];
 
 			window.addEventListener('deviceorientation', function(eventData) {
 
-				updatePosition( Math.round(eventData.gamma) );
+				if (averageGamma.length > 5) {
+					averageGamma.shift();
+				}
+				averageGamma.push(Math.round(eventData.gamma));
+
+				updatePosition( averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length);
 
 			}, false);
 
