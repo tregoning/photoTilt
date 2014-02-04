@@ -32,3 +32,4 @@ TODO
 * implement [lockOrientation](https://developer.mozilla.org/en-US/docs/Web/API/Screen.lockOrientation) (only works in FF)
 * refactor code to use CSS transform instead of left
 * detect resize and re-render
+* hide bar if photo width is smaller than the container's
