@@ -91,14 +91,16 @@ var PhotoTilt = function(options) {
 
 			window.addEventListener('deviceorientation', function(eventData) {
 
-				if (averageGamma.length > 5) {
+				if (averageGamma.length > 8) {
 					averageGamma.shift();
 				}
-				averageGamma.push(Math.round(eventData.gamma));
+
+				averageGamma.push(eventData.gamma);
 
 				updatePosition( averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length);
 
 			}, false);
+
 
 		}
 	};
