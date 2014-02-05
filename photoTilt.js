@@ -5,6 +5,7 @@ var PhotoTilt = function(options) {
 	var imgUrl = options.url,
 		lowResUrl = options.lowResUrl,
 		container = options.container || document.body,
+		latestTilt = 0,
 		viewport,
 		imgData,
 		img,
@@ -22,6 +23,11 @@ var PhotoTilt = function(options) {
 		twoPhase: options.lowResUrl || false,
 		reverseTilt: options.reverseTilt || false
 	};
+
+	window.requestAnimationFrame =  window.requestAnimationFrame ||
+									window.mozRequestAnimationFrame ||
+									window.webkitRequestAnimationFrame ||
+									window.msRequestAnimationFrame;
 
 	var init = function() {
 
@@ -51,9 +57,10 @@ var PhotoTilt = function(options) {
 
 	};
 
-	var updatePosition = function(tilt) {
+	var updatePosition = function() {
 
-		var pxToMove;
+		var tilt = latestTilt,
+			pxToMove;
 
 		if (tilt > 0) {
 			tilt = Math.min(tilt, config.maxTilt);
@@ -71,6 +78,8 @@ var PhotoTilt = function(options) {
 
 		updateTiltBar(tilt);
 
+		window.requestAnimationFrame(updatePosition);
+
 	};
 
 	var updateTiltBar = function(tilt) {
@@ -87,6 +96,7 @@ var PhotoTilt = function(options) {
 	var addEventListeners = function() {
 
 		if (window.DeviceOrientationEvent) {
+
 			var averageGamma = [];
 
 			window.addEventListener('deviceorientation', function(eventData) {
@@ -97,19 +107,21 @@ var PhotoTilt = function(options) {
 
 				averageGamma.push(eventData.gamma);
 
-				updatePosition( averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length);
+				latestTilt = averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length;
 
 			}, false);
 
+			window.requestAnimationFrame(updatePosition);
 
 		}
+
 	};
 
 	var setTranslateX = function(node, amount) {
 		node.style.webkitTransform =
 		node.style.MozTransform =
 		node.style.msTransform =
-		node.style.transform = "translateX(" + amount + "px)";
+		node.style.transform = "translateX(" + Math.round(amount) + "px)";
 	};
 
 	var render = function() {
