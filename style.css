@@ -28,6 +28,7 @@ body {
 	left: 10px;
 	right: 10px;
 	height: 3px;
+	z-index: 1;
 	background-color: rgba(255,255,255,0.3);
 }
 
