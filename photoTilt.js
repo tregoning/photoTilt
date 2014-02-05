@@ -38,6 +38,7 @@ var PhotoTilt = function(options) {
 		preloadImg(url, function() {
 
 			img = imgLoader.cloneNode(false);
+			generateImgData();
 			imgLoader = null;
 
 			if (config.twoPhase) {
@@ -49,7 +50,6 @@ var PhotoTilt = function(options) {
 
 			}
 
-			generateImgData();
 			render();
 			addEventListeners();
 
@@ -174,10 +174,10 @@ var PhotoTilt = function(options) {
 	var generateImgData = function() {
 
 		imgData = {
-			width: img.width,
-			height: img.height,
-			aspectRatio: img.width / img.height,
-			src: img.src
+			width: imgLoader.width,
+			height: imgLoader.height,
+			aspectRatio: imgLoader.width / imgLoader.height,
+			src: imgLoader.src
 		};
 
 	};
