@@ -30,5 +30,3 @@ TODO
 
 * add option for [full screen mode](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Using_full_screen_mode)
 * implement [lockOrientation](https://developer.mozilla.org/en-US/docs/Web/API/Screen.lockOrientation) (only works in FF)
-* detect resize and re-render
-* hide bar if photo width is smaller than the container's
