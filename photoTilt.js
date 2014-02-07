@@ -6,6 +6,8 @@ var PhotoTilt = function(options) {
 		lowResUrl = options.lowResUrl,
 		container = options.container || document.body,
 		latestTilt = 0,
+		timeoutID = 0,
+		disableTilt,
 		viewport,
 		imgData,
 		img,
@@ -101,19 +103,39 @@ var PhotoTilt = function(options) {
 
 			window.addEventListener('deviceorientation', function(eventData) {
 
-				if (averageGamma.length > 8) {
-					averageGamma.shift();
+				if (!disableTilt) {
+
+					if (averageGamma.length > 8) {
+						averageGamma.shift();
+					}
+
+					averageGamma.push(eventData.gamma);
+
+					latestTilt = averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length;
+
 				}
-
-				averageGamma.push(eventData.gamma);
-
-				latestTilt = averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length;
 
 			}, false);
 
 			window.requestAnimationFrame(updatePosition);
 
 		}
+
+		window.addEventListener('resize', function() {
+
+			container.classList.add('is-resizing');
+			window.clearTimeout(timeoutID);
+
+			timeoutID = window.setTimeout(function() {
+
+				generateViewPort();
+				container.innerHTML = "";
+				render();
+				container.classList.remove('is-resizing');
+
+			}, 100);
+
+		}, false);
 
 	};
 
@@ -151,11 +173,21 @@ var PhotoTilt = function(options) {
 		tiltBarIndicator.style.width = tiltBarIndicatorWidth + 'px';
 
 		tiltCenterOffset = ((tiltBarWidth / 2) - (tiltBarIndicatorWidth / 2));
-		updatePosition(0);
+
+		updatePosition();
+
+		if (tiltCenterOffset > 0) {
+			disableTilt = false;
+			tiltBar.appendChild(tiltBarIndicator);
+			mask.appendChild(tiltBar);
+			container.classList.remove('disable-transitions');
+		} else {
+			disableTilt = true;
+			latestTilt = 0;
+			container.classList.add('disable-transitions');
+		}
 
 		mask.appendChild(img);
-		tiltBar.appendChild(tiltBarIndicator);
-		mask.appendChild(tiltBar);
 		container.appendChild(mask);
 
 	};
@@ -187,6 +219,7 @@ var PhotoTilt = function(options) {
 		imgLoader = new Image();
 		imgLoader.addEventListener('load', done, false);
 		imgLoader.src = url;
+
 	};
 
 	init();
